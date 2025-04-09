@@ -13,5 +13,6 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Start the application (change this as needed)
-CMD ["npm", "start"]
+# Start the application 
+#CMD ["node", "fe-server.js"]
+ENTRYPOINT ["node", "fe-server.js"]

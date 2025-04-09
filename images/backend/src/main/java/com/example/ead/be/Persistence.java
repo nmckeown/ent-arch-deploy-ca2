@@ -13,6 +13,7 @@ import com.mongodb.client.result.InsertManyResult;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import org.springframework.core.env.Environment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,8 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class Persistence {
+	private Environment env;
+
   // a few pre-wired recipes we can insert into the database as examples.
   public static List<Recipe> recipes = Arrays.asList(
           new Recipe("elotes",
@@ -47,7 +50,7 @@ public class Persistence {
   public Persistence()
   {
     // User/Password should NOT be embedded in the code. I just do it for simplicity while taking care to give this user the least privilege to avoid security issues!
-    initMongoDBClient("mongodb+srv://ead2024:ead2024.@ead-2023-24.lpclwdo.mongodb.net/", "ead_ca2", "ead_2024");
+    initMongoDBClient(env.getProperty("databaseConnString"), env.getProperty("databaseName"), env.getProperty("databaseCollection"));
   }
 
   public Persistence(String connString, String dbName, String colName)

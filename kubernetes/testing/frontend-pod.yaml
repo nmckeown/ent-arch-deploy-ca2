@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+spec:
+  containers:
+  - name: frontend
+    image: noelmckeown/frontend:v1  # This pulls from Docker Hub
+    ports:
+    - containerPort: 80
+  imagePullSecrets:
+  - name: regcred

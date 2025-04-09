@@ -23,14 +23,14 @@ public class ServiceController {
 		System.out.println("******************************************************");
 		System.out.println("******************************************************");
 		System.out.println("******************************************************");
-		System.out.println("env mongoUri:"+env.getProperty("databaseUrl"));
+		System.out.println("env mongoUri:"+env.getProperty("databaseConnString"));
 		System.out.println("env dbName:"+env.getProperty("databaseName"));
 		System.out.println("env dbName:"+env.getProperty("databaseCollection"));
 		System.out.println("******************************************************");
 		System.out.println("******************************************************");
 		System.out.println("******************************************************");
 
-		 p = new Persistence(env.getProperty("databaseUrl"),
+		 p = new Persistence(env.getProperty("databaseConnString"),
 				env.getProperty("databaseName"), env.getProperty("databaseCollection"));
 	}
 

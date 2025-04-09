@@ -4,16 +4,17 @@ const { parse } = require('querystring');
 var fs = require('fs');
 
 //Loading the config fileContents
-const config = require('./config/config.json');
-const defaultConfig = config.development;
-global.gConfig = defaultConfig;
+//const config = require('./config/config.json');
+//const defaultConfig = config.development;
+//global.gConfig = defaultConfig;
+const config = require('./config/config');
 
 //Generating some constants to be used to create the common HTML elements.
 var header = '<!doctype html><html>'+
 		     '<head>';
 				
 var body =  '</head><body><div id="container">' +
-				 '<div id="logo">' + global.gConfig.app_name + '</div>' +
+				 '<div id="logo">' + config.app_name + '</div>' +
 				 '<div id="space"></div>' +
 				 '<div id="form">' +
 				 '<form id="form" action="/" method="post"><center>'+
@@ -77,8 +78,8 @@ http.createServer(function (req, res) {
 				//Send the data to the WS.
 				//------------------------------
 				const options = {
-				  hostname: global.gConfig.webservice_host,
-				  port: global.gConfig.webservice_port,
+				  hostname: config.webservice_host,
+				  port: config.webservice_port,
 				  path: '/recipe',
 				  method: 'POST',
 				  json: true,   // <--Very important!!!
@@ -120,8 +121,8 @@ http.createServer(function (req, res) {
 			setTimeout(function(){
 
 				const options = {
-				  hostname: global.gConfig.webservice_host,
-				  port: global.gConfig.webservice_port,
+				  hostname: config.webservice_host,
+				  port: config.webservice_port,
 				  path: '/recipes',
 				  method: 'GET',
 				};
@@ -160,4 +161,4 @@ http.createServer(function (req, res) {
 
 		}//end of "else"
 	}}
-).listen(global.gConfig.exposedPort);
+).listen(config.exposedPort, '0.0.0.0');

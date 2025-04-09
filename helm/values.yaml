@@ -1,0 +1,25 @@
+frontend:
+  image: your-dockerhub/node-frontend:latest
+  replicas: 2
+  resources:
+    requests:
+      cpu: "100m"
+    limits:
+      cpu: "500m"
+  service:
+    port: 80
+    targetPort: 3000
+
+backend:
+  image: your-dockerhub/java-backend:latest
+  replicas: 2
+  mongoUri: <base64-encoded-uri>
+  service:
+    port: 80
+    targetPort: 8080
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
