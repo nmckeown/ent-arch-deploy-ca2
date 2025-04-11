@@ -22,6 +22,7 @@ export MONGODB_CONN="mongodb+srv://noelmckeown:6AyLHYGkoco1@ent-arch-deploy-ca2-
 export MONGODB_URI="mongodb+srv://noelmckeown:6AyLHYGkoco1@ent-arch-deploy-ca2-mon.bnofefg.mongodb.net/"
 
 # local test
+mvn clean package -DskipTests
 mvn -N io.takari:maven:wrapper
 chmod +x mvnw
 ./mvnw spring-boot:run

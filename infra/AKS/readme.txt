@@ -111,7 +111,7 @@ Click Confirm
 #
 az group delete --name eadca2rg --yes --no-wait
 az aks delete --resource-group eadca2rg --name EADCA2AKS --yes
-
+az network public-ip delete --resource-group eadca2rg --name EADCA2AKSOutboundIP --yes
 
 
 
