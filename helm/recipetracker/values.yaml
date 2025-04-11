@@ -1,25 +1,24 @@
-frontend:
-  image: your-dockerhub/node-frontend:latest
-  replicas: 2
-  resources:
-    requests:
-      cpu: "100m"
-    limits:
-      cpu: "500m"
-  service:
-    port: 80
-    targetPort: 3000
+namespace: recipetracker
 
 backend:
-  image: your-dockerhub/java-backend:latest
-  replicas: 2
-  mongoUri: <base64-encoded-uri>
-  service:
-    port: 80
-    targetPort: 8080
+  image: noelmckeown/backend:latest
+  port: 8080
+  cpu: "100m"
+  memory: "500m"
 
-autoscaling:
+frontend:
+  image: noelmckeown/frontend:latest
+  servicePort: 9000
+  containerPort: 22137
+  cpu: "100m"
+  memory: "500m"
+
+mongoSecrets:
+  conn: bW9uZ29kYitzcnY6Ly9ub2VsbWNrZW93bjo2QXlMSFlHa29jbzFAZW50LWFyY2gtZGVwbG95LWNhMi1tb24uYm5vZmVmZy5tb25nb2RiLm5ldC8/cmV0cnlXcml0ZXM9dHJ1ZSZ3PW1ham9yaXR5JmFwcE5hbWU9ZW50LWFyY2gtZGVwbG95LWNhMi1tb25nbw==
+  uri: bW9uZ29kYitzcnY6Ly9ub2VsbWNrZW93bjo2QXlMSFlHa29jbzFAZW50LWFyY2gtZGVwbG95LWNhMi1tb24uYm5vZmVmZy5tb25nb2RiLm5ldC8=
+
+hpa:
   enabled: true
   minReplicas: 2
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  maxReplicas: 5
+  cpuUtilization: 50

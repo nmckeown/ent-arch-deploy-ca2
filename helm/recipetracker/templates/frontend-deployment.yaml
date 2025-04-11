@@ -25,6 +25,11 @@ spec:
               value: "{{ .Values.backend.port }}"
             - name: FRONTEND_PORT
               value: "{{ .Values.frontend.containerPort }}"
+          resources:
+            requests:
+              cpu: {{ .Values.backend.cpu }}
+            limits:
+              cpu: {{ .Values.backend.memory }}
       imagePullSecrets:
         - name: regcred
 ---

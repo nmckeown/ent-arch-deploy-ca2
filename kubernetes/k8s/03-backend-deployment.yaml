@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: mongo-uri-secret
                   key: mongo-uri
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
       imagePullSecrets:
       - name: regcred
 ---
