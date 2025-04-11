@@ -1,6 +1,10 @@
 # install 
-helm install my-app ./helm-chart
+helm install recipetracker ./recipetracker
 
 # upgrade 
-helm upgrade my-app ./helm-chart
+helm upgrade recipetracker ./recipetracker
+
+# preview
+helm template recipetracker ./recipetracker
+
 

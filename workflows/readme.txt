@@ -17,3 +17,13 @@ ARM_CLIENT_SECRET:	Azure Service Principal client secret
 ARM_SUBSCRIPTION_ID:	Azure subscription ID
 ARM_TENANT_ID:	Azure tenant ID
 
+
+
+
+AZURE_CREDENTIALS – JSON output from:
+az ad sp create-for-rbac --name "github-actions-aks" --role contributor \
+  --scopes /subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCE_GROUP> \
+  --sdk-auth
+
+AZURE_RG – your resource group name (e.g. myResourceGroup)
+AKS_CLUSTER_NAME – your AKS cluster name (e.g. myAKSCluster)

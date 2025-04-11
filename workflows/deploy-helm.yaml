@@ -1,39 +1,34 @@
-name: Deploy Helm Chart to AKS
+name: Deploy to AKS
 
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout source code
+        uses: actions/checkout@v3
 
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set AKS Context
+      - name: Set AKS context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          resource-group: ${{ secrets.AZURE_RG }}
           cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
 
       - name: Install Helm
         uses: azure/setup-helm@v3
 
-      - name: Helm Dependency Build (if needed)
+      - name: Deploy Helm chart
         run: |
-          helm dependency build ./charts/my-app
-
-      - name: Deploy Helm Chart
-        run: |
-          helm upgrade --install my-release ./charts/my-app \
-            --namespace default \
-            --create-namespace \
-            --wait
+          helm upgrade --install recipetracker ./recipetracker \
+            --namespace recipetracker \
+            --create-namespace

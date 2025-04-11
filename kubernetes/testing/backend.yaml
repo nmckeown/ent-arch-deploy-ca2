@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: recipetracker
 spec:
   replicas: 1
   selector:
@@ -14,9 +15,20 @@ spec:
     spec:
       containers:
         - name: backend
-          image: noelmckeown/backend:v3
+          image: noelmckeown/backend:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: MONGODB_CONN
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-conn-secret
+                  key: mongo-conn
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-uri-secret
+                  key: mongo-uri
       imagePullSecrets:
       - name: regcred
 #---
@@ -36,6 +48,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend
+  namespace: recipetracker
 spec:
   selector:
     app: backend

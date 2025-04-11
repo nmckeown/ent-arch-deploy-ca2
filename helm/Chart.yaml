@@ -1,4 +1,0 @@
-apiVersion: v2
-name: node-java-app
-version: 0.1.0
-description: A Helm chart for deploying a Node.js frontend and Java backend with MongoDB

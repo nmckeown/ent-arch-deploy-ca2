@@ -61,3 +61,35 @@ $ kubectl get nodes
 NAME       STATUS   ROLES           AGE   VERSION
 minikube   Ready    control-plane   75s   v1.32.0
 
+# get frontend URL
+minikube service frontend -n recipetracker
+|---------------|----------|-------------|---------------------------|
+|   NAMESPACE   |   NAME   | TARGET PORT |            URL            |
+|---------------|----------|-------------|---------------------------|
+| recipetracker | frontend |        9000 | http://192.168.49.2:32227 |
+|---------------|----------|-------------|---------------------------|
+🎉  Opening service recipetracker/frontend in default browser...
+
+
+### all resources in recipetracker ns 
+
+$ kc -n recipetracker get all
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-85d6c9fd89-8swgr    1/1     Running   0          30m
+pod/frontend-579d68ffd7-c8t99   1/1     Running   0          30m
+pod/frontend-579d68ffd7-m4f4b   1/1     Running   0          48s
+
+NAME               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/backend    ClusterIP      10.109.214.212   <none>        8080/TCP         30m
+service/frontend   LoadBalancer   10.98.189.116    <pending>     9000:32227/TCP   30m
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           30m
+deployment.apps/frontend   2/2     2            2           30m
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/backend-85d6c9fd89    1         1         1       30m
+replicaset.apps/frontend-579d68ffd7   2         2         2       30m
+
+NAME                                               REFERENCE             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/frontend-hpa   Deployment/frontend   cpu: <unknown>/50%   2         10        2          63s
